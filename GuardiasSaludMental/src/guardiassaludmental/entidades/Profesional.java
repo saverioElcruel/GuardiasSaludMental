@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -17,21 +16,41 @@ public class Profesional implements Serializable {
     private String nombre;
     @OneToOne
     private Disponibilidad disponibilidad;
-    @OneToMany
-    private Licencia licencia;
-    @OneToOne
-    private Credito credito;
+    
+    private int credito;
+    private int guardiasFinde;
+    private int guardiasAsignadas;
 
     public Profesional() {
     }
-    
-    public Profesional(String nombre, Disponibilidad disponibilidad, Licencia licencia, Credito credito) {
+
+    public Profesional(String nombre, Disponibilidad disponibilidad, int credito, int guardiasFinde, int guardiasAsignadas) {
         this.nombre = nombre;
         this.disponibilidad = disponibilidad;
-        this.licencia = licencia;
         this.credito = credito;
+        this.guardiasFinde = guardiasFinde;
+        this.guardiasAsignadas = guardiasAsignadas;
     }
 
+    
+    
+    public int getGuardiasFinde() {
+        return guardiasFinde;
+    }
+
+    public void setGuardiasFinde(int guardiasFinde) {
+        this.guardiasFinde = guardiasFinde;
+    }
+
+    public int getGuardiasAsignadas() {
+        return guardiasAsignadas;
+    }
+
+    public void setGuardiasAsignadas(int guardiasAsignadas) {
+        this.guardiasAsignadas = guardiasAsignadas;
+    }
+    
+   
     public String getId() {
         return id;
     }
@@ -56,19 +75,13 @@ public class Profesional implements Serializable {
         this.disponibilidad = disponibilidad;
     }
 
-    public Licencia getLicencia() {
-        return licencia;
-    }
+    
 
-    public void setLicencia(Licencia licencia) {
-        this.licencia = licencia;
-    }
-
-    public Credito getCredito() {
+    public int getCredito() {
         return credito;
     }
 
-    public void setCredito(Credito credito) {
+    public void setCredito(int credito) {
         this.credito = credito;
     }
     

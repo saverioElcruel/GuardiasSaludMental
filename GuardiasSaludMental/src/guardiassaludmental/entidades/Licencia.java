@@ -1,13 +1,15 @@
-
 package guardiassaludmental.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-public class Licencia {
+@Entity
+public class Licencia implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     private String id;

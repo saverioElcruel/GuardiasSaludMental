@@ -1,4 +1,3 @@
-
 package guardiassaludmental.persistencia;
 
 import guardiassaludmental.entidades.Licencia;

@@ -1,11 +1,11 @@
 package guardiassaludmental.servicios;
 
-import guardiassaludmental.entidades.Credito;
+
 import guardiassaludmental.entidades.Guardia;
 import guardiassaludmental.entidades.Profesional;
 import guardiassaludmental.entidades.Turno;
 import guardiassaludmental.persistencia.GuardiaDAO;
-import java.util.ArrayList;
+import guardiassaludmental.persistencia.ProfesionalDAO;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -24,7 +24,7 @@ public class GuardiaServicio {
         DAO.guardar(guardia);
     }
     
-    public void crearGuardias(){
+    public void crearGuardias()throws Exception{
         System.out.println("Fecha de inicio del calendario(dd/mm/aaaa): ");
         String fecha = sc.next();
         String fechak[] = fecha.split("/");
@@ -51,7 +51,102 @@ public class GuardiaServicio {
          return guardias;
      }
     
+    /*
+    // Aquí puedes realizar alguna operación basada en el objeto anterior y el actual
+            if (personaAnterior != null) {
+                String nombreAnterior = personaAnterior.getNombre();
+                int edadAnterior = personaAnterior.getEdad();
+                // Hacer algo con los atributos del objeto anterior y el actual
+                // Por ejemplo, compararlos, calcular alguna diferencia, etc.
+                // ...
+            }
+    */
     
+    
+    public void asignarGuardiasEquitativamente(){
+        ProfesionalServicio ps = new ProfesionalServicio();
+        ProfesionalDAO profDAO = new ProfesionalDAO();
+        
+        List<Profesional> listadoEquitativo = ps.orderProfesionalesByCharacterCount(profDAO.listarTodosLosProfesionales());
+        Profesional profAnterior = null;
+        Profesional profAntAnterior = null;
+        for (Guardia guardia : guardias) {
+            
+            for (int i = 0; i < listadoEquitativo.size(); i++) {
+                if (listadoEquitativo.get(i).getDisponibilidad().getDias().contains(pasarAString(guardia))& guardia.getTurno()==Turno.DIA) {
+                   guardia.setProfesional(listadoEquitativo.get(i));
+//                   listadoEquitativo.get(i)
+                   DAO.guardar(guardia);
+                   listadoEquitativo.remove(listadoEquitativo.get(i));
+                } else if (listadoEquitativo.get(i).getDisponibilidad().getNoches().contains(pasarAString(guardia))) {
+                    guardia.setTurno(Turno.NOCHE);
+                    guardia.setProfesional(listadoEquitativo.get(i));
+                    DAO.guardar(guardia);
+                    listadoEquitativo.remove(listadoEquitativo.get(i));
+                }
+            profAntAnterior = profAnterior;
+            profAnterior = listadoEquitativo.get(i);
+            }
+            
+        }
+            
+    }
+        
+  public void verGuardiasAsignadas(){
+      for (Guardia guardia : guardias) {
+          System.out.println(guardia.getFecha()+ " "+ guardia.getTurno() + " "+ guardia.getProfesional());
+      }
+  }
+
+    
+    public void asignarGuardias(){
+        int count= 0;
+        for (Guardia guardia : guardias) {
+            ProfesionalServicio profSer = new ProfesionalServicio();
+            Profesional[] dr = profSer.pasarListAvector();
+            
+            if(dr[count].getDisponibilidad().getDias().contains(pasarAString(guardia))){
+                guardia.setProfesional(dr[count]);
+                DAO.guardar(guardia);
+            }
+            if(count==9){
+                count=0;
+            }else{
+                count++;
+            }
+            
+            
+        }
+    }
+    
+    public String pasarAString(Guardia guardia){
+        String dia = "O";
+        switch(guardia.getFecha().getDay()){
+             case 0:
+                     dia = "J";
+                     break;
+                 case 1:
+                     dia = "V";
+                     break;
+                 case 2:
+                     dia = "S";
+                     break;
+                 case 3:
+                     dia = "D";
+                     break;
+                 case 4:
+                     dia = "L";
+                     break;
+                 case 5:
+                     dia = "M";
+                     break;
+                 case 6:
+                     dia = "X";
+                     break;
+        }
+        return dia;
+    }
+    /*
     public void asignarGuardiaDia(){
         ArrayList<Guardia> guardiasDia = (ArrayList<Guardia>)listarGuardiasDia();
         ProfesionalServicio server = new ProfesionalServicio();
@@ -68,6 +163,8 @@ public class GuardiaServicio {
             
         }
     }
+    */
+    
    
     public String mesEnString(){
         int mes = guardias.get(0).getFecha().getMonth();

@@ -1,9 +1,12 @@
 package guardiassaludmental.entidades;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-public class Disponibilidad {
+@Entity
+public class Disponibilidad implements Serializable {
     
     @Id
     @GeneratedValue(generator = "uuid")

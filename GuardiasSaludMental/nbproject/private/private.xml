@@ -3,20 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Daniel/Documents/ITchangas/GuardiasSaludMental/src/guardiassaludmental/servicios/CreditoServicio.java</file>
-            <file>file:/C:/Users/Daniel/Documents/ITchangas/GuardiasSaludMental/src/guardiassaludmental/persistencia/CreditoDAO.java</file>
-            <file>file:/C:/Users/Daniel/Documents/ITchangas/GuardiasSaludMental/src/guardiassaludmental/entidades/Turno.java</file>
-            <file>file:/C:/Users/Daniel/Documents/ITchangas/GuardiasSaludMental/src/guardiassaludmental/persistencia/ProfesionalDAO.java</file>
-            <file>file:/C:/Users/Daniel/Documents/ITchangas/GuardiasSaludMental/src/guardiassaludmental/persistencia/GuardiaDAO.java</file>
-            <file>file:/C:/Users/Daniel/Documents/ITchangas/GuardiasSaludMental/src/guardiassaludmental/servicios/GuardiaServicio.java</file>
-            <file>file:/C:/Users/Daniel/Documents/ITchangas/GuardiasSaludMental/src/guardiassaludmental/persistencia/LicenciaDAO.java</file>
-            <file>file:/C:/Users/Daniel/Documents/ITchangas/GuardiasSaludMental/src/guardiassaludmental/entidades/Licencia.java</file>
             <file>file:/C:/Users/Daniel/Documents/ITchangas/GuardiasSaludMental/src/guardiassaludmental/servicios/LicenciaServicio.java</file>
-            <file>file:/C:/Users/Daniel/Documents/ITchangas/GuardiasSaludMental/src/guardiassaludmental/entidades/Credito.java</file>
-            <file>file:/C:/Users/Daniel/Documents/ITchangas/GuardiasSaludMental/src/guardiassaludmental/servicios/DisponibilidadServicio.java</file>
-            <file>file:/C:/Users/Daniel/Documents/ITchangas/GuardiasSaludMental/src/guardiassaludmental/servicios/ProfesionalServicio.java</file>
-            <file>file:/C:/Users/Daniel/Documents/ITchangas/GuardiasSaludMental/src/guardiassaludmental/entidades/Guardia.java</file>
-            <file>file:/C:/Users/Daniel/Documents/ITchangas/GuardiasSaludMental/src/guardiassaludmental/entidades/Profesional.java</file>
+            <file>file:/C:/Users/Daniel/Documents/ITchangas/GuardiasSaludMental/src/guardiassaludmental/servicios/GuardiaServicio.java</file>
         </group>
     </open-files>
 </project-private>
