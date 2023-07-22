@@ -1,20 +1,27 @@
 
 package entidades;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Guardia {
-    private Date fecha;
+    private LocalDate fecha;
     private String turno;
     private Profesional profesional;
     private boolean feriado;
 
-    public Guardia(Date fecha, String turno, boolean feriado) {
+    public Guardia(LocalDate fecha, String turno, boolean feriado) {
         this.fecha = fecha;
         this.turno = turno;
         this.feriado = feriado;
     }
 
+    public void copyDataFrom(Guardia other) {
+        this.turno = other.getTurno();
+        this.profesional = other.getProfesional();
+        this.feriado = other.isFeriado();
+        // Add more attributes here if necessary
+    }
+    
     public Guardia() {
     }
 
@@ -24,11 +31,11 @@ public class Guardia {
     
     
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 

@@ -2,15 +2,29 @@ package entidades;
 
 public class Profesional {
     private String nombre;
+    //
     private String disponibilidadDia;
     private String disponibilidadNoche;
     private String disponibilidadCentinela;
     private int credito;
+    private Licencia licencia;
     private int guardiasFinde;
     private int guardiasAsignadas;
     private boolean centinela;
 
-    public Profesional(String nombre, String disponibilidadDia, String disponibilidadNoche,String disponibilidadCentinela,int credito, int guardiasFinde, int guardiasAsignadas,boolean centinela) {
+    public Profesional(String nombre, String disponibilidadDia, String disponibilidadNoche,String disponibilidadCentinela,int credito, Licencia licencia, int guardiasFinde, int guardiasAsignadas,boolean centinela) {
+        this.nombre = nombre;
+        this.disponibilidadDia = disponibilidadDia;
+        this.disponibilidadNoche = disponibilidadNoche;
+        this.disponibilidadCentinela = disponibilidadCentinela;
+        this.credito = credito;
+        this.licencia = licencia;
+        this.guardiasFinde = guardiasFinde;
+        this.guardiasAsignadas = guardiasAsignadas;
+        this.centinela = centinela;
+    }
+
+    public Profesional(String nombre, String disponibilidadDia, String disponibilidadNoche, String disponibilidadCentinela, int credito, int guardiasFinde, int guardiasAsignadas, boolean centinela) {
         this.nombre = nombre;
         this.disponibilidadDia = disponibilidadDia;
         this.disponibilidadNoche = disponibilidadNoche;
@@ -20,9 +34,19 @@ public class Profesional {
         this.guardiasAsignadas = guardiasAsignadas;
         this.centinela = centinela;
     }
+    
+    
 
     public Profesional(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Licencia getLicencia() {
+        return licencia;
+    }
+
+    public void setLicencia(Licencia licencia) {
+        this.licencia = licencia;
     }
     
     
