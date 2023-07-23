@@ -16,6 +16,7 @@ public class PruebaBucle {
 //           sgp.mostrarGuardias();
            sgp.crearProfesionales();
            sgp.mostrarProfesionalesOrdenados();
+
            sgp.bucleDelbuclePpal();
 //           sgp.crearLicencia();
         
@@ -24,12 +25,12 @@ public class PruebaBucle {
            
 //           sgp.mostrarProfesionales();
            
-//           System.out.println("");
-
+           System.out.println("");
 
            sgp.mostrarProfesionalesOrdenados();
            
            System.out.println("");
+           
            sgp.mostrarGuardias();
            
 //           sgp.mostrarOrdenCentinelas();

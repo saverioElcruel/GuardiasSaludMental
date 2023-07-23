@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
@@ -33,8 +34,37 @@ public class ServicioGuardiaProfesional {
             return feriado;
         }
     
-    
     public void crearGuardias()throws Exception{
+        String fecha = "16-06-2023";
+        DateTimeFormatter formatear = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate primerDia = LocalDate.parse(fecha, formatear);
+        for (int i = 0; i < 30; i++) {
+            LocalDate diaSiguiente = primerDia.plusDays(i);
+            if(diaSiguiente.getDayOfWeek()==DayOfWeek.SATURDAY || diaSiguiente.getDayOfWeek()==DayOfWeek.SUNDAY){
+                guardias.add(new Guardia(diaSiguiente,"DIA",true));
+                guardias.add(new Guardia(diaSiguiente,"NOCHE",true));
+            }else{
+                guardias.add(new Guardia(diaSiguiente,"DIA",false));
+                guardias.add(new Guardia(diaSiguiente,"NOCHE",false));
+            }   
+        }
+        String fecha1 = "19-06-2023";
+        LocalDate feriado1 = LocalDate.parse(fecha1, formatear);
+        for (Guardia guardia : guardias) {
+            if(guardia.getFecha().getDayOfMonth()==feriado1.getDayOfMonth()){
+                    guardia.setFeriado(true);
+                }
+        }
+        String fecha2 = "20-06-2023";
+        LocalDate feriado2 = LocalDate.parse(fecha2, formatear);
+        for (Guardia guardia : guardias) {
+            if(guardia.getFecha().getDayOfMonth()==feriado2.getDayOfMonth()){
+                    guardia.setFeriado(true);
+                }
+        }
+    }
+    
+    public void crearGuardiasManual()throws Exception{
         System.out.println("Fecha de inicio del calendario(dd/mm/aaaa): ");
         String fecha = sc.next();
         DateTimeFormatter formatear = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -171,40 +201,66 @@ public class ServicioGuardiaProfesional {
     public void bucleDelbuclePpal(){
         List<Profesional> ordenados = ordenarEquitativamente(profesionales);
         buclePpal(ordenados);
-        Collections.shuffle(ordenados);
         buclePpal(ordenados);
-        Collections.shuffle(ordenados);
         buclePpal(ordenados);
+        List<Profesional> centinelas = ordenarCentinelas(profesionales);
+        buclePpal(centinelas);
+        buclePpal(centinelas);
+        buclePpal(centinelas);
+        
+        buclePpal(ordenados);
+        buclePpal(ordenados);
+        buclePpal(ordenados);
+        buclePpal(ordenados);
+        buclePpal(ordenados);
+        buclePpal(ordenados);
+        buclePpal(ordenados);
+        
+        
     }
   
+    public static int valorLicencia(Profesional p){
+        int valor = 30;
+        try{
+            valor = (int) ChronoUnit.DAYS.between(p.getLicencia().getFechaFin(),p.getLicencia().getFechaInicio());
+            
+        }catch(Exception e){
+            valor = 30;
+        }
+        return valor;
+    }
+    
+    
       
-    public void buclePpal(List<Profesional> ordenados){
+    public void buclePpal(List<Profesional> profesionales){
         
         Guardia gAnt = new Guardia(new Profesional("montoto"));
         Guardia gAntAnt = new Guardia(new Profesional("montoto"));
         Guardia gAntAntAnt = new Guardia(new Profesional("montoto"));
         
-        for (Guardia g : guardias) {
+        for (Profesional p : profesionales) {
+            for (Guardia g : guardias) {
             if(g.getProfesional()==null){
-                for (Profesional p : ordenados) {
+                
                     if(gAnt.getProfesional()==p){
                         if(p.isCentinela()&g.getTurno().equals("NOCHE")){
-                            if(turnoDispoLicenciaCredito(g,p)){
+                            if(p.getDisponibilidadCentinela().contains(pasar(g))
+                                & p.getCredito()>0 
+                                        &
+                                !tieneLicencia(g,p)){
                                 if(g.isFeriado()){
                                     if(p.getGuardiasFinde()<3){
                                         asignarGuard(g,p);
                                         sumarGuardiaFeriado(p);
                                         restarCredito(p);
-                                        gAntAntAnt=gAntAnt;
-                                        gAntAnt=gAnt;
-                                        gAnt=g;
+                                        
+                                        break;
                                     }
                                 }else{
                                     asignarGuard(g,p);
                                     restarCredito(p);
-                                    gAntAntAnt=gAntAnt;
-                                    gAntAnt=gAnt;
-                                    gAnt=g;
+                                    
+                                    break;
                                 }
                             }
                         } 
@@ -217,194 +273,29 @@ public class ServicioGuardiaProfesional {
                                             asignarGuard(g,p);
                                             sumarGuardiaFeriado(p);
                                             restarCredito(p);
-                                            gAntAntAnt = gAntAnt;
-                                            gAntAnt = gAnt;
-                                            gAnt = g;
+                                            
+                                            break;
                                         }
                                     } else {
                                         asignarGuard(g,p);
                                         restarCredito(p);
-                                        gAntAntAnt = gAntAnt;
-                                        gAntAnt = gAnt;
-                                        gAnt = g;
+                                        
+                                        break;
                                     }
                                 }
                             }
                         }
                     }
                 }
-                            
+                gAntAntAnt=gAntAnt;
+                gAntAnt=gAnt;
+                gAnt=g;            
             }
         }
         
     }
     
-    // Ajustes del chat
-    public void asigDia() {
-    List<Profesional> ordenados = ordenarEquitativamente(profesionales);
-
-    for (Profesional profesional : ordenados) {
-            Guardia gb = new Guardia();
-            
-            Guardia gA = new Guardia();
-            
-            Guardia guardiaAntAnt = new Guardia();
-           
-            Guardia guardiaAnterior = new Guardia();
-            
-
-        for (Guardia guardia : filterGuardiasToAssign(guardias, profesional)) {
-            if (guardia.getTurno().equals("DIA")) {
-                if (canAssignDia(profesional, guardia, guardiaAnterior, guardiaAntAnt, gA, gb)) {
-                    assignGuardia(profesional, guardia);
-                }
-            } else if (guardia.getTurno().equals("NOCHE")) {
-                if (profesional.isCentinela() && canAssignNocheCentinela(profesional, guardia, guardiaAnterior, gA, gb)) {
-                    assignGuardia(profesional, guardia);
-                } else if (!profesional.isCentinela() && canAssignNoche(profesional, guardia, guardiaAnterior, guardiaAntAnt, gA, gb)) {
-                    assignGuardia(profesional, guardia);
-                }
-            }
-//            gb.copyDataFrom(gA);
-//            gA.copyDataFrom(guardiaAntAnt);
-//             guardiaAntAnt.copyDataFrom(guardiaAnterior);
-             guardiaAnterior.copyDataFrom(guardia);
-        }
-    }
-}
-
-private List<Guardia> filterGuardiasToAssign(List<Guardia> guardias, Profesional profesional) {
-    return guardias.stream()
-                   .filter(guardia -> guardia.getProfesional() == null &&
-                                      guardia.getTurno().equals("DIA") || guardia.getTurno().equals("NOCHE"))
-                   .collect(Collectors.toList());
-}
-
-private boolean canAssignDia(Profesional profesional, Guardia guardia, Guardia guardiaAnterior, Guardia guardiaAntAnt, Guardia gA, Guardia gb) {
-    return profesional.getDisponibilidadDia().contains(pasar(guardia))
-            && !tieneLicencia(guardia, profesional)
-            && profesional.getCredito() > 0
-            && profesional.getGuardiasFinde() < 3
-            && profesional != guardiaAnterior.getProfesional()
-            && profesional != guardiaAntAnt.getProfesional()
-            && profesional != gA.getProfesional()
-            && profesional != gb.getProfesional();
-}
-
-private boolean canAssignNocheCentinela(Profesional profesional, Guardia guardia, Guardia guardiaAnterior, Guardia gA, Guardia gb) {
-    return profesional.getDisponibilidadCentinela().contains(pasar(guardia))
-            && !tieneLicencia(guardia, profesional)
-            && guardiaAnterior.getProfesional() == profesional
-            && profesional.getCredito() > 0
-            && profesional.getGuardiasFinde() < 3
-            && profesional != gA.getProfesional()
-            && profesional != gb.getProfesional();
-}
-
-private boolean canAssignNoche(Profesional profesional, Guardia guardia, Guardia guardiaAnterior, Guardia guardiaAntAnt, Guardia gA, Guardia gb) {
-    return profesional.getDisponibilidadNoche().contains(pasar(guardia))
-            && !tieneLicencia(guardia, profesional)
-            && guardiaAnterior.getProfesional() != profesional
-            && profesional.getCredito() > 0
-            && profesional.getGuardiasFinde() < 3
-            && profesional != gA.getProfesional()
-            && profesional != gb.getProfesional();
-}
-
-private void assignGuardia(Profesional profesional, Guardia guardia) {
-    guardia.setProfesional(profesional);
-    profesional.setCredito(profesional.getCredito() - 1);
-    profesional.setGuardiasAsignadas(profesional.getGuardiasAsignadas() + 1);
-
-    if (guardia.isFeriado()) {
-        profesional.setGuardiasFinde(profesional.getGuardiasFinde() + 1);
-    }
-}
-
-    
-    
-    
-    /*
-    public void asigDia(){
-      List<Profesional> ordenados = ordenarEquitativamente(profesionales);
-        for (Profesional p : ordenados) {
-            Guardia guardiaAnterior = new Guardia();
-            Guardia guardiaAntAnt = new Guardia();
-            Guardia gA = new Guardia();
-            Guardia gb = new Guardia();
-            
-            for (Guardia guardia : guardias) {
-                if(guardia.getTurno().equals("DIA")
-                && p.getDisponibilidadDia().contains(pasar(guardia))
-                        && !tieneLicencia(guardia,p)
-                        && p.getCredito()>0
-                        && p.getGuardiasFinde()<3
-                        && guardia.getProfesional()==null
-                        && (p != guardiaAnterior.getProfesional())
-                        && (p != guardiaAntAnt.getProfesional())
-                        && (p != gA.getProfesional())
-                        && (p != gb.getProfesional())) {
-
-                        guardia.setProfesional(p);
-                        p.setCredito(p.getCredito() - 1);
-                        p.setGuardiasAsignadas(p.getGuardiasAsignadas()+1);
-                        
-                        if(guardia.isFeriado()){
-                            p.setGuardiasFinde(p.getGuardiasFinde()+1);
-                        }
-                        
-                }else if(guardia.getTurno().equals("NOCHE")){
-                    if(p.isCentinela()){
-                        if(p.getDisponibilidadCentinela().contains(pasar(guardia))
-                        && !tieneLicencia(guardia,p)
-                                &guardiaAnterior.getProfesional()==p
-                                &p.getCredito()>0
-                                & p.getGuardiasFinde()<3
-                                & guardia.getProfesional()==null
-                                & (p != guardiaAntAnt.getProfesional())
-                                & (p != gA.getProfesional())
-                                & (p != gb.getProfesional())) {
-
-                        guardia.setProfesional(p);
-                        p.setCredito(p.getCredito() - 1);
-                        p.setGuardiasAsignadas(p.getGuardiasAsignadas()+1);
-                        if(guardia.isFeriado()){
-                            p.setGuardiasFinde(p.getGuardiasFinde()+1);
-                        }
-                        
-                        
-                    }
-                //si p no es centinela
-                }else{
-                        if(p.getDisponibilidadNoche().contains(pasar(guardia))
-                        && !tieneLicencia(guardia,p)
-                                &guardiaAnterior.getProfesional()!=p
-                                &p.getCredito()>0
-                                & p.getGuardiasFinde()<3
-                                & guardia.getProfesional()==null
-                                & (p != guardiaAntAnt.getProfesional())
-                                & (p != gA.getProfesional())
-                                & (p != gb.getProfesional())) {
-
-                        guardia.setProfesional(p);
-                        p.setCredito(p.getCredito() - 1);
-                        p.setGuardiasAsignadas(p.getGuardiasAsignadas()+1);
-                        if(guardia.isFeriado()){
-                            p.setGuardiasFinde(p.getGuardiasFinde()+1);
-                        }
-                    }
-                    
-        }
-    }
-                gb = gA;
-                    gA = guardiaAntAnt;
-                    guardiaAntAnt = guardiaAnterior;
-                    guardiaAnterior = guardia;
-  }
-        }
-  }
-    */
-  
+   
     
     public void crearProfesionales(){
        
@@ -419,7 +310,7 @@ private void assignGuardia(Profesional profesional, Guardia guardia) {
         profesionales.add(prof2);
         
         
-        Profesional prof3 = new Profesional("Lau S", "LMXJVSD", "MS","X", 12,0,0,true);
+        Profesional prof3 = new Profesional("Lau S", "LMXJVSD", "MS","X",12,0,0,true);
         profesionales.add(prof3);
         
         LocalDate inicio = LocalDate.of(2023, 06, 26);
@@ -429,13 +320,13 @@ private void assignGuardia(Profesional profesional, Guardia guardia) {
         profesionales.add(prof4);
         
         LocalDate inicio2 = LocalDate.of(2023, 06, 16);
-        LocalDate fin2 = LocalDate.of(2023, 07, 21);
+        LocalDate fin2 = LocalDate.of(2023, 06, 21);
         Licencia l2 = new Licencia(inicio2,fin2);
         Profesional prof5 = new Profesional("Javier", "LMXSD", "LMSD","LMSD",12,l2,0,0,true);
         profesionales.add(prof5);
         
         LocalDate inicio3 = LocalDate.of(2023, 06, 16);
-        LocalDate fin3 = LocalDate.of(2023, 07, 22);
+        LocalDate fin3 = LocalDate.of(2023, 06, 22);
         Licencia l3 = new Licencia(inicio3,fin3);
         Profesional prof6 = new Profesional("Flor", "LX", "LXJVD","", 12,l3,0,0,false);
         profesionales.add(prof6);
@@ -461,14 +352,14 @@ private void assignGuardia(Profesional profesional, Guardia guardia) {
     
     public void mostrarProfesionales(){
         for (Profesional p : profesionales) {
-            System.out.println(p.getNombre()+" Crédito: "+p.getCredito()+" Guardias Asignadas: "+p.getGuardiasAsignadas());
+            System.out.println(p.getNombre()+" Crédito: "+p.getCredito());
         }
     }
     public void mostrarProfesionalesOrdenados(){
     List<Profesional> listaOrdenada = ordenarEquitativamente(profesionales);
         for (Profesional p : listaOrdenada) {
             System.out.println(p.getNombre()+
-                    " Crédito: "+p.getCredito()+" Guardias Asignadas: "+p.getGuardiasAsignadas()
+                    " Crédito: "+p.getCredito()
                     + " Guardias FoF: "+p.getGuardiasFinde()
             +" DispoDia: "+p.getDisponibilidadDia()+" DispoNoche: "+p.getDisponibilidadNoche()
             +" DispoCentinela: "+p.getDisponibilidadCentinela());
@@ -484,9 +375,9 @@ private void assignGuardia(Profesional profesional, Guardia guardia) {
         @Override
         public int compare(Profesional p1, Profesional p2) {
             int p1Dispo = p1.getDisponibilidadDia().length() + p1.getDisponibilidadNoche().length()
-                    +p1.getCredito();
+                    +p1.getCredito()+valorLicencia(p1);
             int p2Dispo = p2.getDisponibilidadDia().length() + p2.getDisponibilidadNoche().length()
-                    +p2.getCredito();
+                    +p2.getCredito()+valorLicencia(p2);
 
             return Integer.compare(p1Dispo,p2Dispo);
         }
@@ -511,7 +402,7 @@ private void assignGuardia(Profesional profesional, Guardia guardia) {
     List<Profesional> listaOrdenada = ordenarCentinelas(profesionales);
         for (Profesional p : listaOrdenada) {
             System.out.println(p.getNombre()+
-                    " Crédito: "+p.getCredito()+" Guardias Asignadas: "+p.getGuardiasAsignadas()
+                    " Crédito: "+p.getCredito()
                     + " DispoCentinela: "+p.getDisponibilidadCentinela());
         }
     }
