@@ -1,0 +1,39 @@
+function generarDevolucion() {
+
+    //Configuración
+    var colNombre = 1;
+    var colDev = 5; 
+
+    //Identificaciones
+    var plantillaID = "1WFZXt9qFNFALLHj9m_bNdFq8RsRku7AcNjNy4HXx19s";
+    var devID = "1ngh-onnXXVvmJPmQgHVM85jkWalMYQnn";
+
+    //Conectores
+    var doc = DocumentApp.openById(plantillaID);
+    var archivoPlantilla = DriveApp.getFileById(plantillaID);
+    var carpetaDevoluciones = DriveApp.getFolderById(devID);
+    var hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Datos");
+    
+
+    //Variables para el documento
+    var filaActiva = SpreadsheetApp.getActiveRange().getRow();
+    var nombre = hoja.getRange(filaActiva,colNombre).getValue();
+    var devolucion = hoja.getRange(filaActiva,colDev).getValue();
+
+    //Crear copia
+    var copiaArchivoPlantilla = archivoPlantilla.makeCopy(carpetaDevoluciones);
+    var copiaID = copiaArchivoPlantilla.getId();
+    var nombreDoc = "Devolución de "+nombre;
+    copiaArchivoPlantilla.setName(nombreDoc);
+    var doc = DocumentApp.openById(copiaID);
+    doc.setName(nombreDoc);
+
+    doc.getBody().replaceText("{{nombre}}",nombre);
+    doc.getBody().replaceText("{{devolucion}}",devolucion);
+
+}
+function onOpen(){
+  var ui = SpreadsheetApp.getUi();
+  var menu = ui.createMenu("Devoluciones");
+  menu.addItem("Generar devolución", "generarDevolucion").addToUi();
+}
