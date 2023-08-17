@@ -1,29 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import '/Users/Daniel/Documents/ITchangas/prodeApp/prode/src/App.css'
+import "./App.css";
+import Footer from "./components/public/Footer";
+import Main from "./components/public/Main"; //no tiene llaves porque es un component de clase y no un functional component
+import Navbar from "./components/public/Navbar";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import Detail from "./components/public/Detail";
+import UserForm from "./components/public/UserForm";
 
-function Example() {
-  // Declara una nueva variable de estado, la cual llamaremos “count”
-  const [count, setCount] = useState(0);
+function App() {
   return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
-    </div>
+      <div>
+      
+      <Navbar />
+      <Router>
+      <Routes>
+          <Route exact path="/" element={<Main/>}  ></Route>
+          <Route exact path="/user-form" element={<UserForm />}  ></Route>
+          <Route exact path="/detail/:id" element={<Detail />}  ></Route>
+      </Routes>
+      </Router>
+
+      <Footer />
+      </div>
   );
 }
 
-function Ejemplo(){
-  const [luz, setLuz] = useState('ON');
-  return(
-    <div class="div">
-      <p>{luz}</p>
-      <button onClick={() => setLuz((luz=='ON')?'OFF':'ON')}>
-        ON/OFF
-      </button>
-    </div>
-  )
-}
-
-export default Ejemplo;
+export default App;
