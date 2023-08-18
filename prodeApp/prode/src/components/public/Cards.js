@@ -15,7 +15,7 @@ const Cards = ( {} ) => {
         
   }, [equipos])
 
-  const cardList = equipos.map((e)=> <Card equipo={e} key={e.id}/>)
+  const cardList = equipos.map((e)=> <Card equipo={e} key={e.id} />)
 
   return (
       <div>

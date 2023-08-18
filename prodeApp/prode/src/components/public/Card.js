@@ -15,7 +15,7 @@ const Card = ({equipo}) => {
                       <div className="btn-group">
                         <button type="button" className="btn btn-sm btn-outline-secondary">Ver</button>
                         <button type="button" className="btn btn-sm btn-outline-secondary">
-                        <Link to={'/details/${equipo.id}'} className="nav-link">
+                        <Link to={`/detail/${equipo.id}`} className="nav-link">
                           Detalle
                         </Link>
                         </button>

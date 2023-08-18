@@ -4,15 +4,14 @@ import RickAndMortyService from '../../services/RickAndMorty.service';
 
 const Detail = () => {
 
-    const [equipo,setEquipo] = useState({});
+    const [equipo, setEquipo] = useState({});
     const {id} = useParams();
     const { pathname } = useLocation(); 
 
     useEffect(()=>{
-        console.log(pathname)
         RickAndMortyService.getCharacterById(id)
         .then((data)=>setEquipo(data))
-    },[id])
+    },[])
     const detailCard = {
         width: '80%',
         margin: 'auto',
