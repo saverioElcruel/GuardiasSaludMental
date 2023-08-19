@@ -29,6 +29,7 @@ export default class Main extends Component {
         </section>
       </main>
 
+
       <Cards />
 
       </div>

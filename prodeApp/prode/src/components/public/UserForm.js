@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useUserForm } from "../../hooks/Custom.hooks";
+import useUserForm from "../../hooks/Custom.hooks";
 
 const UserForm = () => {
   const { form, handleChanges } = useUserForm();
