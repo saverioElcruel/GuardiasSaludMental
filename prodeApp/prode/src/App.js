@@ -15,6 +15,7 @@ function App() {
           <Route exact path="/" element={<Main/>}  />
           <Route exact path="/user-form" element={<UserForm />}  />
           <Route path="/detail/:id" element={<Detail />}  />
+          <Route path="/posiciones" element={<Posiciones />}  />
       </Routes>
       </Router>
       <Footer />

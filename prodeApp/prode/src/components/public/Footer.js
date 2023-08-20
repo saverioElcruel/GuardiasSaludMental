@@ -26,7 +26,7 @@ const Footer = () => {
     <div className={`app-container ${background}`}>
         <footer className="py-3 my-4">
           <ul className="nav justify-content-center border-bottom pb-3 mb-3">
-            <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Inicio</a></li>
+            <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Arriba</a></li>
             <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Posiciones</a></li>
             <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Vaticinios</a></li>
             <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">FAQs</a></li>

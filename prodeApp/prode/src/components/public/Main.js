@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Cards from './Cards';
+import {Link} from 'react-router-dom'
+
 
 export default class Main extends Component {
   
@@ -21,7 +23,9 @@ export default class Main extends Component {
               <h1 className="fw-light">Pronósticos deportivos</h1>
               <p className="lead text-muted">Elige un partido y haz tus predicciones. Si adivinás la cantidad de goles de cada equipo obtenés 3 puntos. Si solo adivinás quién gana o si hay empate, tenés 1 punto.</p>
               <p>
-                <a href="#" className="btn btn-primary my-2">Llamada a la acción principal</a>
+                <Link to={`/user-form`} className="nav-link">
+                          Formulario
+                        </Link>
                 <a href="#" className="btn btn-secondary my-2">Acción secundaria</a>
               </p>
             </div>
