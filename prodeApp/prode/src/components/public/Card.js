@@ -5,7 +5,7 @@ const Card = ({equipo}) => {
   return (
                 <div className="col">
                 <div className="card shadow-sm">
-                  <img width="50%" src={equipo.image} alt="imagen"/>
+                  <img width="10%" src={equipo.image} alt="imagen"/>
                   
                   <h3>{equipo.name}</h3>
 

@@ -5,6 +5,7 @@ import Navbar from "./components/public/Navbar";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import Detail from "./components/public/Detail";
 import UserForm from "./components/public/UserForm";
+import Posiciones from "./components/public/Posiciones";
 
 function App() {
   return (

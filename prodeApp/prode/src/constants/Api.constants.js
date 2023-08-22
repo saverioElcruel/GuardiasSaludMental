@@ -1,4 +1,5 @@
 export const API_RM = {
+
     URL:"https://rickandmortyapi.com/api",
 
     CHARACTERS : function(){
@@ -19,4 +20,13 @@ export const API_RM = {
     LOCATION_BY_ID : function(id){
         return `${this.URL}/episode/${id}`
     }
+}
+
+export const API_FULBO = {
+
+    URL:"https://api-football-beta.p.rapidapi.com/fixtures?date=2020-02-06",
+    RESULTADOS : function(){
+        return `${this.URL}/response/score/fulltime`
+    },
+
 }
