@@ -3,6 +3,8 @@ package guardiassaludmental;
 
 import guardiassaludmental.servicios.GuardiaServicio;
 import guardiassaludmental.servicios.ProfesionalServicio;
+import java.util.LinkedList;
+import java.util.List;
 
 public class GuardiasSaludMental {
 
@@ -25,4 +27,9 @@ public class GuardiasSaludMental {
         
     }
     
+    
 }
+        
+    
+    
+
