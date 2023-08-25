@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 
 
 const Footer = () => {
 
     const [click,setClick] = useState(0);
-
-    const [background,setBackground] = useState('default-background');
+    const [background,setBackground] = useState(false);
+    const [background2,setBackground2] = useState('default-background');
 
     const year = new Date().getFullYear();
     const companyName = "imprenta Socha";
@@ -14,11 +14,14 @@ const Footer = () => {
         setClick(click+1);
     }
 
+    useEffect(()=>{
+
+    },[background,setBackground])
+
     const handleBackground=()=>{
       setBackground(()=>{
         setBackground(background === 'default-background' ? 'new-background' : 'default-background');
-        console.log("no soy quién para andar haciendo mandados")
-      })
+      },[background,background2])
     }
 
 

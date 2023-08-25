@@ -10,15 +10,19 @@ import Posiciones from "./components/public/Posiciones";
 function App() {
   return (
       <div>
+
       <Router>
       <Navbar />
+      
       <Routes>
           <Route exact path="/" element={<Main/>}  />
           <Route exact path="/user-form" element={<UserForm />}  />
           <Route path="/detail/:id" element={<Detail />}  />
           <Route path="/posiciones" element={<Posiciones />}  />
       </Routes>
+      
       </Router>
+
       <Footer />
       </div>
   );

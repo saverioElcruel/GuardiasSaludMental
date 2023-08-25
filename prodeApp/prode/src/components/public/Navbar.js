@@ -9,14 +9,11 @@ const Navbar = () => {
           <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
               <li> 
-              <Link to={`/`} className="nav-link">
-              <a className="nav-link px-2 text-secondary">Inicio</a></ Link>
+              <Link to={`/`} className="nav-link">Inicio</ Link>
               </li> 
                 
               <li>
-              <Link to={`/posiciones`} className="nav-link">
-                <a href="#" className="nav-link px-2 text-white">Posiciones</a>
-                </Link>
+              <Link to={`/posiciones`} className="nav-link">Posiciones</Link>
                 </li>
 
               <li><a href="#" className="nav-link px-2 text-white">Vaticinios</a></li>
