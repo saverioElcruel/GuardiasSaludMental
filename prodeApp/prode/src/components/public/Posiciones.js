@@ -2,6 +2,7 @@ import React, {useEffect,useState} from 'react'
 import {Link, useParams, useLocation} from 'react-router-dom'
 import RickAndMortyService from '../../services/RickAndMorty.service';
 
+
 const Posiciones = () => {
 
     const [equipo, setEquipo] = useState({});
