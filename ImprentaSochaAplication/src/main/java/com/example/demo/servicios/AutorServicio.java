@@ -2,7 +2,8 @@
 package com.example.demo.servicios;
 
 import com.example.demo.entidades.Autor;
-import com.example.demo.repositorio.AutorRepositorio;
+import com.example.demo.excepciones.MiException;
+import com.example.demo.repositorios.AutorRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,11 +14,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class AutorServicio {
     
-//    @Autowired
+    @Autowired(required=true)
     AutorRepositorio autorRepositorio;
     
     @Transactional
-    public void crearAutor(String nombre){
+    public void crearAutor(String nombre) throws MiException{
+        
+        validar(nombre);
+        
         Autor autor = new Autor();
         
         autor.setNombre(nombre);
@@ -36,6 +40,16 @@ public class AutorServicio {
             Autor autor = respuesta.get();
             autor.setNombre(nombre);
             autorRepositorio.save(autor);
+        }
+    }
+    
+    public Autor getOne(String id){
+        return autorRepositorio.getOne(id);
+    }
+    
+    private void validar(String nombre) throws MiException{
+        if(nombre.isEmpty()){
+            throw new MiException("El nombre no puede ser nulo");
         }
     }
 }

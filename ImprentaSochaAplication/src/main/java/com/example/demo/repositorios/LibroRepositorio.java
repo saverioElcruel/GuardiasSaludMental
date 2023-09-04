@@ -1,4 +1,4 @@
-package com.example.demo.repositorio;
+package com.example.demo.repositorios;
 
 import com.example.demo.entidades.Libro;
 import java.util.List;

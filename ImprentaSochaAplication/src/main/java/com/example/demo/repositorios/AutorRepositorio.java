@@ -1,4 +1,4 @@
-package com.example.demo.repositorio;
+package com.example.demo.repositorios;
 
 import com.example.demo.entidades.Autor;
 import java.util.List;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AutorRepositorio extends JpaRepository<Autor,String> {
-    /*@Query("SELECT a FROM Autor a WHERE a.nombre = :nombre")
-    public Autor buscarPorNombre(@Param("nombre") String nombre);*/
-    
-    @Query("SELECT a FROM Autor a WHERE a.libro.titulo = :titulo")
-    public List<Autor> buscarPorLibro(@Param("titulo") String titulo);
+//    @Query("SELECT a FROM Autor a WHERE a.nombre = :nombre")
+//    public Autor buscarPorNombre(@Param("nombre") String nombre);
+//    
+//    @Query("SELECT a FROM Autor a WHERE a.libro.titulo = :titulo")
+//    public List<Autor> buscarPorLibro(@Param("titulo") String titulo);
 }

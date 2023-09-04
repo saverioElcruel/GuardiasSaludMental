@@ -2,7 +2,7 @@
 package com.example.demo.servicios;
 
 import com.example.demo.entidades.Editorial;
-import com.example.demo.repositorio.EditorialRepositorio;
+import com.example.demo.repositorios.EditorialRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
