@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AutorServicio {
     
-    @Autowired(required=true)
+//    @Autowired
     AutorRepositorio autorRepositorio;
     
     @Transactional
@@ -48,7 +48,7 @@ public class AutorServicio {
     }
     
     private void validar(String nombre) throws MiException{
-        if(nombre.isEmpty()){
+        if(nombre.isEmpty()||nombre==null){
             throw new MiException("El nombre no puede ser nulo");
         }
     }
