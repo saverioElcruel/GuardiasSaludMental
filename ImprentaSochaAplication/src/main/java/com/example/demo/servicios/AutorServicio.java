@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AutorServicio {
     
-//    @Autowired
+    @Autowired
     AutorRepositorio autorRepositorio;
     
     @Transactional

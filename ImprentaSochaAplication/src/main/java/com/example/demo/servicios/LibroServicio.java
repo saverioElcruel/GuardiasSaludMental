@@ -19,13 +19,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class LibroServicio {
     
-//    @Autowired
+    @Autowired
     private LibroRepositorio libroRepositorio;
     
-//    @Autowired
+    @Autowired
     private AutorRepositorio autorRepositorio;
     
-//    @Autowired
+    @Autowired
     private EditorialRepositorio editorialRepositorio;
     
     @Transactional

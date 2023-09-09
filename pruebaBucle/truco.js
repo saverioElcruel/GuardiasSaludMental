@@ -9,6 +9,5 @@ for (let i = 0; i < numeros.length; i++) {
         naipes.push(numeros[i]+" "+palos[j])
     }
 }
-
-
 console.log(naipes);
+

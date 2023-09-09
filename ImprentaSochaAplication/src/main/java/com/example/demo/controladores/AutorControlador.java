@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/autor") //localhost:8080/autor
 public class AutorControlador {
     
-//    @Autowired
+    @Autowired
     private AutorServicio autorServicio;
        
     @GetMapping("/registrar") //localhost:8080/autor/registrar
@@ -27,9 +27,10 @@ public class AutorControlador {
     
     
     @PostMapping("/registro")
-    public String registro(@RequestParam String nombre, ModelMap modelo){
+    public String registro(@RequestParam String nombre) throws MiException{
         
         try {
+            
             autorServicio.crearAutor(nombre);
             
 //            modelo.put("exito", "El Autor fue registrado correctamente!");
