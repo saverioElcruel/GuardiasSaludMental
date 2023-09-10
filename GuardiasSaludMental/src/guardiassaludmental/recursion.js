@@ -58,52 +58,42 @@ console.log(reverseString("hola"));
 
 
 
+// El producto cartesiano desglosado: 
 // Encontrar todas las posibles combinaciones de un
-// conjunto. El producto cartesiano desglosado
+// conjunto. 
 
 function combinaciones(elementos) {
 
     //  Inicializa dos vectores: "resultado" y "temporal". 
     //  resultado almacena todas las combinaciones de elementos posibles, empezando en vacío,
     //  temporal almacenará cada subconjunto construido.
-
     let resultado = [];
     let temporal = [];
-
 
     //  La función recursiva es definida dentro del conjunto. 
     //  Esta función toma dos argumentos: elementos (el vector ingresado) 
     //  e i (un índice que realiza un seguimiento sobre el elemento actual).
-
     function recursiva(elementos, i) {
-
 
         // Caso base, cuando i toma el valor de la longitud del vector
         // significa que ya recorrimos todos los elementos.
-        // En este punto, insertamos una copia del vector temporal a resultado
+        // En este punto, insertamos una copia del vector temporal a resultado,
         // esto asegura que no enviemos una referencia a temporal, y así
         // preservamos las combinaciones encontradas.
-
         if (i === elementos.length) {
             return resultado.push([...temporal]);
         }
 
-
-        // temp.push(elementos[i]): es llamado para agregar el elemento actual 
-        // en el índice i al vector temp, incluyéndolo como la combinación actual. 
-        
+        // temp.push(elementos[i]) es llamado para agregar el elemento actual 
+        // en el índice i al vector temporal, incluyéndolo como la combinación actual. 
         temporal.push(elementos[i]);
 
-
         // recursive(nums, i + 1); es llamado para generar recursivamente 
-        // subconjuntos incluyendo el elemento actual en el índice i.
-        
+        // subconjuntos incluyendo el elemento actual en el índice i.        
         recursiva(elementos, i + 1);
 
-
         // temp.pop();remueve el último elemento agregado al vector temp, 
-        // excluyéndolo de la combinación actual.
-        
+        // excluyéndolo de la combinación actual.        
         temporal.pop();
 
         recursiva(elementos, i + 1);
@@ -112,6 +102,7 @@ function combinaciones(elementos) {
     return resultado;
 }
 let combinetas = combinaciones(["a","b","c","d","e"]);
+console.log(combinetas);
 
 // prueba para aplicar condiciones por afuera de la función
 let comDeTres = [];
@@ -134,36 +125,29 @@ for (let i = 0; i < numeros.length; i++) {
     }
 }
 
-const naipes = cartas.map(item => item.split(' '));
 
-function manos(naipes,limite) {
-
+function manos(cartas,limite) {
     let result = [];
     let temp = [];
-
-    function recursiv(naipes, i) {
-        if (i === naipes.length) {
+    function recursiv(cartas, i) {
+        if (i === cartas.length) {
+            // prueba para aplicar condiciones por dentro de la función
             if(temp.length===limite){
             result.push([...temp]);
            }
            return;
         }
-
-        temp.push(naipes[i]);
-
-        recursiv(naipes, i + 1);
-
+        temp.push(cartas[i]);
+        recursiv(cartas, i + 1);
         temp.pop();
-
-        recursiv(naipes, i + 1);
+        recursiv(cartas, i + 1);
     }
-    recursiv(naipes, 0);
+    recursiv(cartas, 0);
     return result;
 }
 
 // cartas[16],cartas[17],cartas[18],cartas[19], cartas[20],cartas[21],cartas[22],cartas[23],cartas[24], cartas[25],cartas[26],cartas[27],cartas[28],cartas[29],cartas[30],cartas[31],cartas[32],cartas[33],cartas[34], cartas[35],cartas[36],cartas[37],cartas[38],cartas[39], cartas[40]
 
-let juegos = manos([cartas[0],cartas[1],cartas[2],cartas[3],cartas[4],cartas[5],cartas[6],cartas[7],cartas[8],cartas[9],cartas[10],cartas[11],cartas[12],cartas[13],cartas[14],cartas[15],cartas[16],cartas[17],cartas[18],cartas[19],cartas[20],cartas[21],cartas[22],cartas[23],cartas[24],cartas[25],cartas[26],cartas[27],cartas[28],cartas[29],cartas[30],cartas[31],cartas[32],cartas[33],cartas[34],cartas[35],cartas[36],cartas[37],cartas[38],cartas[39]],3);
+let juegos = manos([cartas[0],cartas[1],cartas[2],cartas[3],cartas[4],cartas[5]],3);
 
-console.log(naipes);
 console.log(juegos);
