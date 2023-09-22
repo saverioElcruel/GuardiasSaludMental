@@ -208,7 +208,6 @@ function asignarGuardia(inicio,guardia,fin) {
             if (esValido(guardia, doc)) {
                 guardia.doc = doc.nombre;
                 guardias[fin] = guardia;
-                
             }
         }
         return guardias;
