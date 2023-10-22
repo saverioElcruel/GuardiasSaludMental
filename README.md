@@ -1,4 +1,8 @@
-# GuardiasSaludMental
+# ITchangas
+
+ITchangas tiene de todo. Lo más copado el TATETI ATR
+
+Después Guardias profesional, que es esto:
 
 El problema consiste en asignar, de la manera más equitativa posible,
 60 guardias a un grupo de 10 agentes según su disponibilidad.
