@@ -1,0 +1,110 @@
+body {
+    background-color: darkgray;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#mensaje{
+    position: relative;
+    font-size:x-large;
+}
+
+#t0,#t1,#t2,#t3,#t4,#t5,#t6,#t7,#t8{
+    width: 100%; /* Make each smaller board fill its grid cell */
+    height: 100%; /* Make each smaller board fill its grid cell */
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid black; /* Add border to each smaller board */
+}
+#tableroPpal{
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+    grid-template-rows: repeat(3, 300px);
+    gap: 10px; 
+    width: 900px;
+    height: 900px;
+}
+
+.active-board {
+    background-color:blueviolet; 
+  }
+
+  .active-board .casilla {
+    border: 4px solid black; 
+  }
+.casilla{
+    width: 100px;
+    height: 100px;
+    background-color:white;
+    border: solid 2px black;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.círculo{
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    border: 15px solid green;
+    box-sizing: border-box;
+}
+.cruz{
+    height: 90px;
+    width: 90px;
+    position: relative;
+    transform: rotate(45deg);
+}
+.cruz:before, .cruz:after{
+    content:"";
+    position:absolute;
+    background-color: darkred;
+}
+.cruz:before{
+    left:50%;
+    width:30%;
+    margin-left: -15%;
+    height: 100%;
+}
+.cruz:after{
+    top:50%;
+    height:30%;
+    margin-top: -15%;
+    width: 100%;
+}
+
+.cruzGanadora{
+  width: 300px;
+  height: 300px;
+  position: relative;
+}
+
+.cruzGanadora:before, .cruzGanadora:after{
+    content: '';
+    position: absolute;
+    background-color: darkred;
+    width: 30px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+.cruzGanadora:before{
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+.círculoGanador{
+    width: 300px;
+  height: 300px;
+  background-color:green;
+  border-radius: 50%;
+  display: flex;
+  position: center;
+  align-items: center;
+  justify-content: center;
+}
