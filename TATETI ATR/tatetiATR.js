@@ -36,6 +36,17 @@ function agregaMarca(e) {
   const allBoards = document.querySelectorAll(".tablero");
   allBoards.forEach((board) => board.classList.remove("active-board"));
 
+  /*
+  if(activeBoard isComplete){
+    from 0 to 8 while i!=boardId
+    const activeBoard = document.querySelector("#t" + boardId);
+    activeBoard.classList.add("active-board");
+  }else{
+  const inactiveBoards = document.querySelector("#t" + !boardId);
+  activeBoard.classList.add("inactive-boards");
+  }
+*/
+
   const activeBoard = document.querySelector("#t" + boardId);
   activeBoard.classList.add("active-board");
 
