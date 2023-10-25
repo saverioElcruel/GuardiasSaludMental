@@ -5,14 +5,14 @@ const celdas = ["", "", "", "", "", "", "", "", ""];
 let marca = "cruz";
 mensaje.textContent = "Cruz empieza";
 
-function crearTablero(targetId) {
-  const target = document.querySelector(`#${targetId}`);
+function crearTablero(tableroId) {
+  const tablero = document.querySelector(`#${tableroId}`);
   celdas.forEach((_celda, index) => {
-    const celdaElemento = document.createElement("div");
-    celdaElemento.classList.add("casilla");
-    celdaElemento.id = index;
-    celdaElemento.addEventListener("click", agregaMarca);
-    target.appendChild(celdaElemento);
+    const celda = document.createElement("div");
+    celda.classList.add("casilla");
+    celda.id = index;
+    celda.addEventListener("click", agregarMarca);
+    tablero.appendChild(celda);
   });
 }
 
@@ -24,17 +24,17 @@ function crearTableros() {
 
 crearTableros();
 
-function agregaMarca(e) {
+function agregarMarca(e) {
   const marcaForma = document.createElement("div");
   marcaForma.classList.add(marca);
   e.target.append(marcaForma);
   
-  const cellId = parseInt(e.target.id);
+  const celdaId = parseInt(e.target.id);
 
-  const boardId = cellId;
+  const tableroId = celdaId;
 
-  const allBoards = document.querySelectorAll(".tablero");
-  allBoards.forEach((board) => board.classList.remove("active-board"));
+  const tableros = document.querySelectorAll(".tablero");
+  tableros.forEach((tablero) => tablero.classList.remove("tablero-activo"));
 
   /*
   if(activeBoard isComplete){
@@ -47,19 +47,58 @@ function agregaMarca(e) {
   }
 */
 
-  const activeBoard = document.querySelector("#t" + boardId);
-  activeBoard.classList.add("active-board");
+  //const tableroActivo = document.querySelector("#t" + tableroId);
+  //
+  for (const tablero of tableros) {
+    if(tablero.id.includes(tableroId)){
+      tablero.classList.add("tablero-activo");
+    }else{
+      tablero.classList.add("tablero-inactivo");
+    }
+  }
+
 
   marca = marca === "círculo" ? "cruz" : "círculo";
-  mensaje.textContent = "Es ahora, " + marca + " juega.";
-  e.target.removeEventListener("click", agregaMarca);
+  let posicion = "";
+  switch(e.target.id){
+    case "0":
+      posicion="de la esquina superior izquierda"
+      break;
+    case "1":
+      posicion="de arriba al medio"
+      break;
+    case "2":
+      posicion="de la esquina superior derecha"
+      break;
+    case "3":
+      posicion="de la izquierda al medio"
+      break;
+    case "4":
+      posicion="del centro"
+      break;
+    case "5":
+      posicion="de la derecha al medio"
+      break;
+    case "6":
+      posicion="de la esquina inferior izquierda"
+      break;
+    case "7":
+      posicion="de abajo al medio"
+      break;
+    case "8":
+      posicion="de la esquina inferior derecha"
+      break;
+  }
+  mensaje.textContent = "Es ahora, " + marca + " juega en el tablero "+(posicion);
+  
+  e.target.removeEventListener("click", agregarMarca);
   chequearPuntaje();
 }
 
 const cruzGanados=[];
-  const circuloGanados = [];
+const circuloGanados = [];
 
-  function buscarGanadorGlobal() {
+function buscarGanadorGlobal() {
     const tablerosGanadores = [
       [0, 1, 2], [3, 4, 5], [6, 7, 8],
       [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -97,7 +136,7 @@ function chequearPuntaje() {
       if (cruzGana) {
         mensaje.textContent = `¡Cruz gana en el tablero ${i}!`;
         casillasTablero.forEach((casilla) =>
-          casilla.removeEventListener("click", agregaMarca)
+          casilla.removeEventListener("click", agregarMarca)
         );
         cruzGanados.push(i);
         buscarGanadorGlobal();
@@ -108,7 +147,7 @@ function chequearPuntaje() {
       if (circuloGana) {
         mensaje.textContent = `¡Círculo gana en el tablero ${i}!`;
         casillasTablero.forEach((casilla) =>
-          casilla.removeEventListener("click", agregaMarca)
+          casilla.removeEventListener("click", agregarMarca)
         );
         circuloGanados.push(i);
         buscarGanadorGlobal();
@@ -119,15 +158,15 @@ function chequearPuntaje() {
   }
 }
 
-function reiniciarTablero(targetBoardNum, winner) {
-  const targetBoard = document.querySelector(`#t${targetBoardNum}`);
-  const shapeElement = document.createElement("div");
-  if (winner === "cruz") {
-    shapeElement.classList.add("cruzGanadora");
-  } else if (winner === "círculo") {
-    shapeElement.classList.add("círculoGanador");
+function reiniciarTablero(tableroId, ganador) {
+  const tablero = document.querySelector(`#t${tableroId}`);
+  const marcaGrande = document.createElement("div");
+  if (ganador === "cruz") {
+    marcaGrande.classList.add("cruzGanadora");
+  } else if (ganador === "círculo") {
+    marcaGrande.classList.add("círculoGanador");
   }
-  targetBoard.innerHTML = "";
-  targetBoard.appendChild(shapeElement);
+  tablero.innerHTML = "";
+  tablero.appendChild(marcaGrande);
 }
 
