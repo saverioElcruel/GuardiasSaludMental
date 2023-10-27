@@ -34,11 +34,7 @@ body {
 .tablero-inactivo{
     background-color:blueviolet; 
 }
-    .tablero-activo .casilla {
-        border: 4px solid darkred; 
-      }
-
-
+    
 .tablero-activo {
     background-color:blueviolet; 
   }

@@ -24,6 +24,11 @@ function crearTableros() {
 
 crearTableros();
 
+function estaCompleto(tablero) {
+  const casillas = tablero.querySelectorAll(".casilla");
+  return [...casillas].every((casilla) => casilla.querySelector(".cruz") || casilla.querySelector(".círculo"));
+}
+
 function agregarMarca(e) {
   const marcaForma = document.createElement("div");
   marcaForma.classList.add(marca);
@@ -31,33 +36,49 @@ function agregarMarca(e) {
   
   const celdaId = parseInt(e.target.id);
 
-  const tableroId = celdaId;
-
   const tableros = document.querySelectorAll(".tablero");
+
   tableros.forEach((tablero) => tablero.classList.remove("tablero-activo"));
 
-  /*
-  if(activeBoard isComplete){
-    from 0 to 8 while i!=boardId
-    const activeBoard = document.querySelector("#t" + boardId);
-    activeBoard.classList.add("active-board");
-  }else{
-  const inactiveBoards = document.querySelector("#t" + !boardId);
-  activeBoard.classList.add("inactive-boards");
-  }
-*/
+  const tableroTarget = document.getElementById("t"+celdaId)
 
-  //const tableroActivo = document.querySelector("#t" + tableroId);
-  //
-  for (const tablero of tableros) {
-    if(tablero.id.includes(tableroId)){
+  const tablerosInTarget = [];
+
+  tableros.forEach((tablero)=>{
+    if(tablero.id!=tableroTarget.id){
+      tablerosInTarget.push(tablero);
+    }
+  })
+
+  if(estaCompleto(tableroTarget)){
+    tablerosInTarget.forEach((tablero)=>{
       tablero.classList.add("tablero-activo");
-    }else{
+      const casillas = tablero.querySelectorAll(".casilla");
+      casillas.forEach((casilla)=>{
+        casilla.addEventListener("click", agregarMarca);
+      })
+    })
+  }else{
+
+    tableros.forEach((tablero)=>{
+      if (tablero.id.includes(celdaId)) {
+        tablero.classList.add("tablero-activo");
+        const casillas = tablero.querySelectorAll(".casilla");
+        casillas.forEach((casilla) => {
+        casilla.addEventListener("click", agregarMarca);
+      });
+    }else {
+      const casillas = tablero.querySelectorAll(".casilla");
+      casillas.forEach((casilla) => {
+        casilla.removeEventListener("click", agregarMarca);
+      });
       tablero.classList.add("tablero-inactivo");
     }
+    
+  })
+
   }
-
-
+  
   marca = marca === "círculo" ? "cruz" : "círculo";
   let posicion = "";
   switch(e.target.id){
@@ -89,9 +110,12 @@ function agregarMarca(e) {
       posicion="de la esquina inferior derecha"
       break;
   }
-  mensaje.textContent = "Es ahora, " + marca + " juega en el tablero "+(posicion);
+  
+
+  mensaje.textContent = "Es ahora, " + marca + " juega";
   
   e.target.removeEventListener("click", agregarMarca);
+
   chequearPuntaje();
 }
 
