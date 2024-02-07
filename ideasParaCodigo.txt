@@ -1,1 +1,0 @@
-armar un diccionario que primero analice un pdf buscando recurrencias, luego las ordene según su cantidad de apariciones.
