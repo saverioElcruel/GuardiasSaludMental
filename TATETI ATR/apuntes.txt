@@ -1,0 +1,17 @@
+
+Evitar que el otro gane en la siguiente jugada
+
+En el ta-te-ti clásico si el que juega primero marca el centro y el que juega segundo marca alguna esquina y los dos juegan bien, el resultado es empate.
+Si el que juega segundo marca algún centro, hay una manera forzada de ganar eligiendo cualquier esquina libre y a
+
+centro = 9
+esquinas = 3
+medios = 2
+
+
+
+threat / amenaza
+
+forzar
+
+
